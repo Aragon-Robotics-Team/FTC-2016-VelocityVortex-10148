@@ -35,6 +35,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
+
 
 /**
  * This file provides basic Teleop driving for a Tank Drive robot.
@@ -55,7 +57,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class TankDrive extends OpMode {
 
     /* Declare OpMode members. */
-    DriveModules Drive = new DriveModules(); // use the class created to define a Robot's hardware
+    Drivetrain Drive = new Drivetrain(); // use the class created to define a Robot's hardware
 
     // Declare Gamepad variables
     double LeftStickY;

@@ -35,6 +35,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Hardware;
+
+import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 /**
  * This file provides basic Telop driving for a Holonomic robot.
@@ -49,21 +54,25 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
+ */)
 
-@TeleOp(name = "Holonomic drive", group = "Holonomic")
+@TeleOp(name = "HolonomicDrive", group = "Holonomic")
 @Disabled
 public class HolonomicDrive extends OpMode {
 
+    HardwareMap blah2;
+
     /* Declare OpMode members. */
-    DriveModules Drive = new DriveModules(); // use the class created to define a Robot's hardware
+
+    Drivetrain Drive = new Drivetrain(); // use the class created to define a Robot's hardware
 
     //Declare Gamepad variables
-    double LeftStickX;
-    double LeftStickY;
-    double RightStickX;
+    double leftStickX;
+    double leftStickY;
+    double rightStickX;
 
     //Declare Drive variables
+
 
 
     @Override
@@ -71,7 +80,7 @@ public class HolonomicDrive extends OpMode {
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
-        Drive.init(hardwareMap);
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
@@ -99,11 +108,11 @@ public class HolonomicDrive extends OpMode {
     public void loop() {
 
         // Scales inputs and assigns them
-        LeftStickX = Math.pow((gamepad1.left_stick_x), 5);
-        LeftStickY = Math.pow((gamepad1.left_stick_y), 5);
-        RightStickX = Math.pow((gamepad1.right_stick_x), 5);
+        leftStickX = Math.pow((gamepad1.left_stick_x), 5);
+        leftStickY = Math.pow((gamepad1.left_stick_y), 5);
+        rightStickX = Math.pow((gamepad1.right_stick_x), 5);
 
-        Drive.Holonomic(LeftStickX, LeftStickY, RightStickX);
+        Drive.HolonomicDrive(leftStickX, leftStickY, rightStickX);
 
 //        // Send telemetry message to signify robot running;
 //        telemetry.addData("claw",  "Offset = %.2f", clawOffset);
