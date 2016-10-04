@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -26,69 +24,60 @@ public class Drivetrain {
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.REVERSE);
-
-        // Set all motors to zero pow
-
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
-
     }
-
-
-
-    //Tank Drive Method
 
     //Holonomic Drive Method
-    public void HolonomicDrive(double movX, double movY, double rot) {
+    public void holonomicDrive(double movX, double movY, double rotation) {
 
         //assign motor powers their inputs based on position on the robot
-        double FLPwr = Range.clip((+movX + movY), -1, 1) + rot;
-        double FRPwr = Range.clip((-movX + movY), -1, 1) - rot;
-        double BLPwr = Range.clip((-movX + movY), -1, 1) + rot;
-        double BRPwr = Range.clip((+movX + movY), -1, 1) - rot;
+        double forwardLeftPower = Range.clip((movX + movY), -1, 1) + rotation;
+        double forwardRightPower = Range.clip((-1 * movX + movY), -1, 1) - rotation;
+        double backLeftPower = Range.clip((-1 * movX + movY), -1, 1) + rotation;
+        double backRightPower = Range.clip((movX + movY), -1, 1) - rotation;
 
         //balance movement and rotation
-        if (FLPwr > 1) {
-            BRPwr -= (FLPwr - 1);
-            FLPwr = 1.0;
+        if (forwardLeftPower > 1) {
+            backRightPower -= (forwardLeftPower - 1);
+            forwardLeftPower = 1.0;
         }
-        if (FLPwr < -1) {
-            BRPwr += (FLPwr + 1);
-            FLPwr = -1.0;
+        if (forwardLeftPower < -1) {
+            backRightPower += (forwardLeftPower + 1);
+            forwardLeftPower = -1.0;
         }
-        if (FRPwr > 1) {
-            BLPwr -= (FRPwr - 1);
-            FRPwr = 1.0;
+        if (forwardRightPower > 1) {
+            backLeftPower -= (forwardRightPower - 1);
+            forwardRightPower = 1.0;
         }
-        if (FRPwr < -1) {
-            BLPwr += (FRPwr + 1);
-            FRPwr = -1.0;
+        if (forwardRightPower < -1) {
+            backLeftPower += (forwardRightPower + 1);
+            forwardRightPower = -1.0;
         }
-        if (BLPwr > 1) {
-            FRPwr -= (BLPwr - 1);
-            BLPwr = 1.0;
+        if (backLeftPower > 1) {
+            forwardRightPower -= (backLeftPower - 1);
+            backLeftPower = 1.0;
         }
-        if (BLPwr < -1) {
-            FRPwr += (BLPwr + 1);
-            BLPwr = -1.0;
+        if (backLeftPower < -1) {
+            forwardRightPower += (backLeftPower + 1);
+            backLeftPower = -1.0;
 
-            if (BRPwr > 1) {
-                FLPwr -= (BRPwr - 1);
-                BRPwr = 1.0;
+            if (backRightPower > 1) {
+                forwardLeftPower -= (backRightPower - 1);
+                backRightPower = 1.0;
             }
-            if (BRPwr < -1) {
-                FLPwr += (BRPwr + 1);
-                BRPwr = -1.0;
+            if (backRightPower < -1) {
+                forwardLeftPower += (backRightPower + 1);
+                backRightPower = -1.0;
             }
 
-            frontLeft.setPower(FLPwr);
-            frontRight.setPower(FRPwr);
-            backLeft.setPower(BLPwr);
-            backRight.setPower(BRPwr);
+            frontLeft.setPower(forwardLeftPower);
+            frontRight.setPower(forwardRightPower);
+            backLeft.setPower(backLeftPower);
+            backRight.setPower(backRightPower);
         }
     }
 
-    public void stop(){HolonomicDrive(0,0,0);
+    public void stop() {
+        holonomicDrive(0, 0, 0);
     }
 }
 

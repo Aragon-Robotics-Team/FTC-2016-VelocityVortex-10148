@@ -35,9 +35,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Hardware;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
@@ -56,7 +54,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */)
 
-@TeleOp(name = "HolonomicDrive", group = "Holonomic")
+@TeleOp(name = "holonomicDrive", group = "Holonomic")
 @Disabled
 public class HolonomicDrive extends OpMode {
 
@@ -112,7 +110,7 @@ public class HolonomicDrive extends OpMode {
         leftStickY = Math.pow((gamepad1.left_stick_y), 5);
         rightStickX = Math.pow((gamepad1.right_stick_x), 5);
 
-        Drive.HolonomicDrive(leftStickX, leftStickY, rightStickX);
+        Drive.holonomicDrive(leftStickX, leftStickY, rightStickX);
 
 //        // Send telemetry message to signify robot running;
 //        telemetry.addData("claw",  "Offset = %.2f", clawOffset);
