@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -32,8 +33,8 @@ public class Drivetrain {
         //assign motor powers their inputs based on position on the robot
         double forwardLeftPower = Range.clip((movX + movY), -1, 1) + rotation;
         double forwardRightPower = Range.clip((-1 * movX + movY), -1, 1) - rotation;
-        double backLeftPower = Range.clip((-1 * movX + movY), -1, 1) + rotation;
-        double backRightPower = Range.clip((movX + movY), -1, 1) - rotation;
+        double backLeftPower = Range.clip((-1 * movX - movY), -1, 1) + rotation;
+        double backRightPower = Range.clip((movX - movY), -1, 1) - rotation;
 
         //balance movement and rotation
         if (forwardLeftPower > 1) {
