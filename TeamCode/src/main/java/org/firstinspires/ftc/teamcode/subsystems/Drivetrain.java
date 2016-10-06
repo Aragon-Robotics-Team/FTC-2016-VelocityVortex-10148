@@ -59,21 +59,20 @@ public class Drivetrain {
         if (backLeftPower < -1) {
             forwardRightPower += (backLeftPower + 1);
             backLeftPower = -1.0;
-
-            if (backRightPower > 1) {
-                forwardLeftPower -= (backRightPower - 1);
-                backRightPower = 1.0;
-            }
-            if (backRightPower < -1) {
-                forwardLeftPower += (backRightPower + 1);
-                backRightPower = -1.0;
-            }
-
-            frontLeft.setPower(forwardLeftPower);
-            frontRight.setPower(forwardRightPower);
-            backLeft.setPower(backLeftPower);
-            backRight.setPower(backRightPower);
         }
+        if (backRightPower > 1) {
+            forwardLeftPower -= (backRightPower - 1);
+            backRightPower = 1.0;
+        }
+        if (backRightPower < -1) {
+            forwardLeftPower += (backRightPower + 1);
+            backRightPower = -1.0;
+        }
+
+        frontLeft.setPower(forwardLeftPower);
+        frontRight.setPower(forwardRightPower);
+        backLeft.setPower(backLeftPower);
+        backRight.setPower(backRightPower);
     }
 
     public void stop() {
