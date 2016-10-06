@@ -10,10 +10,10 @@ public class TeleOpSingle extends OpMode {
     private Drivetrain drivetrain;
 
     public void init() {
-        drivetrain = new Drivetrain(hardwareMap.dcMotor.get(" "), hardwareMap.dcMotor.get(" "), hardwareMap.dcMotor.get(" "), hardwareMap.dcMotor.get(" "));
+        drivetrain = new Drivetrain(hardwareMap.dcMotor.get("drive_front_left"), hardwareMap.dcMotor.get("drive_front_right"), hardwareMap.dcMotor.get("drive_back_left"), hardwareMap.dcMotor.get("drive_back_right"));
         drivetrain.stop();
-
     }
+
     @Override
     public void start() {
         drivetrain.stop();
@@ -26,5 +26,4 @@ public class TeleOpSingle extends OpMode {
     public void stop() {
         drivetrain.stop();
     }
-
 }
