@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import android.text.method.MovementMethod;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
@@ -27,7 +29,25 @@ public class Drivetrain {
         backRight.setDirection(DcMotor.Direction.REVERSE);
     }
 
-    //Holonomic Drive Method
+    //Holonomic Drive Methods
+    public void topDownHolonomicDrive(double movX, double movY, double rotX, double encoderCount, double encoderTicks, double wheelDiameter, double botDiameter){
+        // angles in radians
+        double movementStrength = Math.abs(movX * movY);
+        double movementAngle = Math.atan2(movY,movX);
+        double botAngle = 2 * Math.PI * ((encoderCount/encoderTicks) * (Math.PI * wheelDiameter)) / Math.PI*botDiameter;
+        double movementAngleRelative = movementAngle - botAngle;
+        double forwardLeftAngle = 1/4 * Math.PI + movementAngleRelative;
+        double forwardRightAngle = -1/4 * Math.PI + movementAngleRelative;
+        double backLeftAngle = 3/4 * Math.PI +  movementAngleRelative;
+        double backRightAngle = -3/4 * Math.PI + movementAngleRelative;
+        double forwardLeftPower = Range.clip( Math.sin(forwardLeftAngle) * movementStrength + rotX, -1, 1);
+        double forwardRightPower = Range.clip( Math.sin(forwardRightAngle) * movementStrength + rotX, -1, 1);
+        double backLeftPower = Range.clip( Math.sin(backLeftAngle) * movementStrength + rotX, -1, 1);
+        double backRightPower = Range.clip( Math.sin(backRightAngle) * movementStrength + rotX, -1, 1);
+    };
+
+
+
     public void holonomicDrive(double movX, double movY, double rotation) {
 
         //assign motor powers their inputs based on position on the robot
