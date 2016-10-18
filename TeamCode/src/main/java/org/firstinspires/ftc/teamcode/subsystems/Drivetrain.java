@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.util.Range;
  *
  */
 public class Drivetrain {
+
     // Declaration of motors for Holonomic Drive
     private DcMotor frontLeft, frontRight, backLeft, backRight;
 
@@ -22,6 +23,17 @@ public class Drivetrain {
         this.backLeft = backLeft;
         this.backRight = backRight;
 
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //set to motors to run using encoders for even speed
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         //set wheel direction (reverse if on the right)
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -30,20 +42,34 @@ public class Drivetrain {
     }
 
     //Holonomic Drive Methods
-    public void topDownHolonomicDrive(double movX, double movY, double rotX, double encoderCount, double encoderTicks, double wheelDiameter, double botDiameter){
+    public void topDownHolonomicDrive(double movX, double movY, double rotX){
         // angles in radians
-        double movementStrength = Math.abs(movX * movY);
+
+        double movementStrength = Math.pow((movX * movY),2);
         double movementAngle = Math.atan2(movY,movX);
-        double botAngle = 2 * Math.PI * ((encoderCount/encoderTicks) * (Math.PI * wheelDiameter)) / Math.PI*botDiameter;
-        double movementAngleRelative = movementAngle - botAngle;
-        double forwardLeftAngle = 1/4 * Math.PI + movementAngleRelative;
-        double forwardRightAngle = -1/4 * Math.PI + movementAngleRelative;
-        double backLeftAngle = 3/4 * Math.PI +  movementAngleRelative;
-        double backRightAngle = -3/4 * Math.PI + movementAngleRelative;
-        double forwardLeftPower = Range.clip( Math.sin(forwardLeftAngle) * movementStrength + rotX, -1, 1);
-        double forwardRightPower = Range.clip( Math.sin(forwardRightAngle) * movementStrength + rotX, -1, 1);
+        double frontLeftAngle = relativeAngle(0.25*Math.PI, movementAngle, frontLeft.getCurrentPosition());
+        double frontRightAngle = relativeAngle(-0.25*Math.PI, movementAngle, frontRight.getCurrentPosition());
+        double backLeftAngle = relativeAngle(0.75*Math.PI, movementAngle, backLeft.getCurrentPosition());
+        double backRightAngle = relativeAngle(-0.75*Math.PI, movementAngle, backRight.getCurrentPosition());
+
+        double forwardLeftPower = Range.clip( Math.sin(frontLeftAngle) * movementStrength + rotX, -1, 1);
+        double forwardRightPower = Range.clip( Math.sin(frontRightAngle) * movementStrength - rotX, -1, 1);
         double backLeftPower = Range.clip( Math.sin(backLeftAngle) * movementStrength + rotX, -1, 1);
-        double backRightPower = Range.clip( Math.sin(backRightAngle) * movementStrength + rotX, -1, 1);
+        double backRightPower = Range.clip( Math.sin(backRightAngle) * movementStrength - rotX, -1, 1);
+
+        frontLeft.setPower(forwardLeftPower);
+        frontRight.setPower(forwardRightPower);
+        backLeft.setPower(backLeftPower);
+        backRight.setPower(backRightPower);
+
+    };
+    //finds the angle of each motor relative to the direction of movement
+    public double relativeAngle (double motorAngle, double movementAngle, int motorPosition){
+        //1440: number of ticks per rotation on the encoder
+        //3.75: diameter of wheels
+        //18.75: approximation of the diameter of the bot's path
+        return
+                motorAngle + movementAngle - (2*Math.PI * ((motorPosition/1440)*(Math.PI*3.75))/Math.PI*18.75);
     };
 
 
