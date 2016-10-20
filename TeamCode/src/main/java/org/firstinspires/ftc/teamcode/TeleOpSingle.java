@@ -11,45 +11,30 @@ import org.firstinspires.ftc.teamcode.subsystems.*;
 public class TeleOpSingle extends OpMode {
 
     private Drivetrain drivetrain;
-    private DcMotor flywheel;
+    private FlyWheel flyWheel;
 
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("drive_front_left"), hardwareMap.dcMotor.get("drive_front_right"), hardwareMap.dcMotor.get("drive_back_left"), hardwareMap.dcMotor.get("drive_back_right"));
         drivetrain.stop();
 
-        flywheel = hardwareMap.dcMotor.get("fly_wheel");
-        // 
-        flywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        flyWheel = new FlyWheel(hardwareMap.dcMotor.get("fly_wheel_forward"), hardwareMap.dcMotor.get("other_fly_wheel_"));
+
     }
 
     @Override
     public void start() {
         drivetrain.stop();
-        flywheel.setPower(0.0);
+        flyWheel.start();
     }
 
     @Override
     public void loop() {
         drivetrain.holonomicDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-        if(gamepad1.a == true)
-        {
-            flywheel.setPower(0.15);
-
-            // just sends data to user
-            while(gamepad1.a == true)
-            {
-                telemetry.addData("text", "Run at speed");
-                telemetry.addData("Power: ", flywheel.getPower());
-                telemetry.addData("Position: ", flywheel.getCurrentPosition());
-            }
-        }
-        else
-            flywheel.setPower(0.0);
-
+        flyWheel.setPower(gamepad1.right_trigger); // assigns motor power
     }
     public void stop() {
         drivetrain.stop();
-        flywheel.setPower(0.0);
+        flyWheel.start();
     }
 }
