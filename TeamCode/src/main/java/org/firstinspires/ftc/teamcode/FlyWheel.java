@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by akshaybodla on 10/17/16.
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class FlyWheel {
     private DcMotor flyWheelForward, flyWheelForward1;
 
+    /* Constructor */
     public FlyWheel(DcMotor flyWheelForward, DcMotor flyWheelForward1)
     {
         this.flyWheelForward = flyWheelForward;
@@ -19,6 +21,7 @@ public class FlyWheel {
         this.flyWheelForward1 = flyWheelForward1;
         flyWheelForward.setDirection(DcMotor.Direction.FORWARD);
     }
+
 
     public void start()
     {
@@ -29,6 +32,8 @@ public class FlyWheel {
 
     public void setPower(float power)
     {
+        power = Range.clip(power, 0, 1);
+
         flyWheelForward.setPower(power);
         flyWheelForward1.setPower(power);
     }

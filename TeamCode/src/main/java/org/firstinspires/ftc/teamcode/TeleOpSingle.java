@@ -31,7 +31,7 @@ public class TeleOpSingle extends OpMode {
     public void loop() {
         drivetrain.holonomicDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
-        flyWheel.setPower(gamepad1.right_trigger);
+        flyWheel.setPower(gamepad1.right_trigger); // assigns motor power
     }
     public void stop() {
         drivetrain.stop();
