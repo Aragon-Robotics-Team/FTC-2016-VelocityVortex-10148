@@ -17,7 +17,7 @@ public class TeleOpSingle extends OpMode {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("drive_front_left"), hardwareMap.dcMotor.get("drive_front_right"), hardwareMap.dcMotor.get("drive_back_left"), hardwareMap.dcMotor.get("drive_back_right"));
         drivetrain.stop();
 
-        flyWheel = new FlyWheel(hardwareMap.dcMotor.get("fly_wheel_forward"), hardwareMap.dcMotor.get("other_fly_wheel_"));
+        flyWheel = new FlyWheel(hardwareMap.dcMotor.get("fly_wheel_forward"), hardwareMap.dcMotor.get("other_fly_wheel_"), hardwareMap.servo.get("gate_servo"));
 
     }
 
@@ -32,7 +32,13 @@ public class TeleOpSingle extends OpMode {
         drivetrain.holonomicDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
 
         flyWheel.setPower(gamepad1.right_trigger); // assigns motor power
+        if (gamepad1.a == true)
+            flyWheel.setServoPos(1);
+        else
+            flyWheel.setServoPos(0);
+
     }
+
     public void stop() {
         drivetrain.stop();
         flyWheel.start();
