@@ -18,6 +18,7 @@ public class TeleOpSingle extends OpMode {
         drivetrain.stop();
 
         flyWheel = new FlyWheel(hardwareMap.dcMotor.get("fly_wheel_forward"), hardwareMap.dcMotor.get("other_fly_wheel_"));
+        conveyor = new ConveyorBelt(hardwareMap.dcMotor.get("conveyor"));
 
     }
 
@@ -25,6 +26,7 @@ public class TeleOpSingle extends OpMode {
     public void start() {
         drivetrain.stop();
         flyWheel.start();
+        conveyor.start();
     }
 
     @Override
@@ -36,5 +38,6 @@ public class TeleOpSingle extends OpMode {
     public void stop() {
         drivetrain.stop();
         flyWheel.start();
+        conveyor.start();
     }
 }
