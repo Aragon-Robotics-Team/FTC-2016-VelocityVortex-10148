@@ -12,6 +12,7 @@ public class TeleOpSingle extends OpMode {
 
     private Drivetrain drivetrain;
     private FlyWheel flyWheel;
+    private ConveyorBelt conveyor;
 
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("drive_front_left"), hardwareMap.dcMotor.get("drive_front_right"), hardwareMap.dcMotor.get("drive_back_left"), hardwareMap.dcMotor.get("drive_back_right"));
