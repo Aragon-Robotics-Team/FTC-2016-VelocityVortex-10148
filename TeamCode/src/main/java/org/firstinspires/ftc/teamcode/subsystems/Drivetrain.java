@@ -77,10 +77,10 @@ public class Drivetrain {
     public void holonomicDrive(double movX, double movY, double rotation) {
 
         //assign motor powers their inputs based on position on the robot
-        double forwardLeftPower = Range.clip((movX + movY), -1, 1) + rotation;
-        double forwardRightPower = Range.clip((-1 * movX + movY), -1, 1) - rotation;
-        double backLeftPower = Range.clip((-1 * movX - movY), -1, 1) + rotation;
-        double backRightPower = Range.clip((movX - movY), -1, 1) - rotation;
+        double forwardLeftPower = Range.clip((movX + movY), -1, 1) - rotation;
+        double forwardRightPower = Range.clip((-1 * movX + movY), -1, 1) + rotation;
+        double backLeftPower = Range.clip((-1 * movX + movY), -1, 1) - rotation;
+        double backRightPower = Range.clip((movX + movY), -1, 1) + rotation;
 
         //balance movement and rotation
         if (forwardLeftPower > 1) {
