@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,7 +11,6 @@ import com.qualcomm.robotcore.util.Range;
 
 public class FlyWheel {
     private DcMotor flyWheelForward, flyWheelForward1;
-    private Servo hopperservo;
 
     /* Constructor */
     public FlyWheel(DcMotor flyWheelForward, DcMotor flyWheelForward1, Servo hopperservo)
@@ -22,7 +21,6 @@ public class FlyWheel {
         this.flyWheelForward1 = flyWheelForward1;
         flyWheelForward.setDirection(DcMotor.Direction.FORWARD);
 
-        this.hopperservo = hopperservo;
     }
 
 
@@ -30,13 +28,8 @@ public class FlyWheel {
     {
         flyWheelForward.setPower(0.0);
         flyWheelForward1.setPower(0.0);
-        setServoPos(0.0);
     }
 
-    public void setServoPos(double position)
-    {
-        hopperservo.setPosition(position);
-    }
 
     public void setPower(float power)
     {
@@ -45,7 +38,6 @@ public class FlyWheel {
         flyWheelForward.setPower(power);
         flyWheelForward1.setPower(power);
 
-        setServoPos(0.0);
     }
 
 
