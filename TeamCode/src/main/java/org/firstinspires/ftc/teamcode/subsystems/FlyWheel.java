@@ -13,7 +13,7 @@ public class FlyWheel {
     private DcMotor flyWheelForward, flyWheelForward1;
 
     /* Constructor */
-    public FlyWheel(DcMotor flyWheelForward, DcMotor flyWheelForward1, Servo hopperservo)
+    public FlyWheel(DcMotor flyWheelForward, DcMotor flyWheelForward1)
     {
         this.flyWheelForward = flyWheelForward;
         flyWheelForward.setDirection(DcMotor.Direction.FORWARD);
