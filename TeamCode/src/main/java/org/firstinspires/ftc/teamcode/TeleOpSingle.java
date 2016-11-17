@@ -30,12 +30,13 @@ public class TeleOpSingle extends OpMode {
         hopperServo.stop();
 
         capBallLifter = new CapBallLifter(hardwareMap.dcMotor.get("lift"));
+        capBallLifter.stop();
 
     }
 
     @Override
     public void start() {
-        drivetrain.stop();
+
     }
 
     @Override
@@ -47,7 +48,6 @@ public class TeleOpSingle extends OpMode {
         if(gamepad1.right_bumper){
             conveyorBelt.setPower(1);
         }
-        //conveyorBelt.setPower(gamepad1.right_bumper);
 
         if(gamepad1.dpad_up){
             hopperServo.changePosition(0.05);
@@ -62,5 +62,6 @@ public class TeleOpSingle extends OpMode {
 
     public void stop() {
         drivetrain.stop();
+
     }
 }
