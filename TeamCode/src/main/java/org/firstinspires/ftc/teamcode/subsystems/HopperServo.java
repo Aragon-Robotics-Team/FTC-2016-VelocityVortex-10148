@@ -19,11 +19,6 @@ public class HopperServo {
         whingmeelPosition = 0;
     }
 
-    public void changePosition(double change){
-        whingmeelPosition = whingmeelPosition + change;
-        whingmeel.setPosition(whingmeelPosition);
-    }
-
     public void setPosition(double position){
         whingmeelPosition = position;
         whingmeel.setPosition(whingmeelPosition);

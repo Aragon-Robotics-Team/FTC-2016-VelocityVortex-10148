@@ -47,13 +47,15 @@ public class TeleOpSingle extends OpMode {
 
         if(gamepad1.right_bumper){
             conveyorBelt.setPower(1);
+        } else{
+            conveyorBelt.setPower(0);
         }
 
         if(gamepad1.dpad_up){
-            hopperServo.changePosition(0.05);
+            hopperServo.setPosition(0.75);
         }
         if(gamepad1.dpad_down){
-            hopperServo.changePosition(-0.05);
+            hopperServo.setPosition(0.25);
         }
 
         capBallLifter.setPower(gamepad1.left_trigger);
