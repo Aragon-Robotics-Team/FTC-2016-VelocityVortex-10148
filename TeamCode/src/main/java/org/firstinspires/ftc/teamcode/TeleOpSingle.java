@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.DigitalChannelController;
 
 import org.firstinspires.ftc.teamcode.subsystems.*;
 
 @TeleOp(name="Drive: TeleOp Single", group="Drive")
+@Disabled
 public class TeleOpSingle extends OpMode {
 
     private Drivetrain drivetrain;
@@ -15,6 +20,8 @@ public class TeleOpSingle extends OpMode {
     private ConveyorBelt conveyorBelt;
     private HopperServo hopperServo;
     private CapBallLifter capBallLifter;
+
+    private double neutral = 0.478;
 
     public void init() {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("drive_front_left"), hardwareMap.dcMotor.get("drive_front_right"), hardwareMap.dcMotor.get("drive_back_left"), hardwareMap.dcMotor.get("drive_back_right"));
@@ -24,41 +31,60 @@ public class TeleOpSingle extends OpMode {
         flyWheel.start();
 
         conveyorBelt = new ConveyorBelt(hardwareMap.dcMotor.get("conveyor"));
-        conveyorBelt.start();
 
         hopperServo = new HopperServo(hardwareMap.servo.get("hopper_servo"));
         hopperServo.stop();
 
-        capBallLifter = new CapBallLifter(hardwareMap.dcMotor.get("lift"));
+        capBallLifter = new CapBallLifter(hardwareMap.dcMotor.get("lift"),hardwareMap.servo.get("lift_release"), hardwareMap.servo.get("lift_release2"));
         capBallLifter.stop();
-
     }
 
     @Override
     public void start() {
-
+        telemetry.addLine("Dont lose");
     }
 
     @Override
     public void loop() {
-        drivetrain.holonomicDrive(Math.pow(gamepad1.left_stick_x,7), Math.pow(gamepad1.left_stick_y,7), Math.pow(gamepad1.right_stick_x,7));
 
-        flyWheel.setPower(gamepad1.right_trigger);
+        drivetrain.holonomicDrive(-Math.pow(gamepad1.left_stick_x,7), Math.pow(gamepad1.left_stick_y,7), Math.pow(gamepad1.right_stick_x,7));
+
+        conveyorBelt.setConveyorPower(gamepad1.right_trigger);
 
         if(gamepad1.right_bumper){
-            conveyorBelt.setPower(1);
+            flyWheel.setPower(1);
         } else{
-            conveyorBelt.setPower(0);
+            flyWheel.setPower(0);
+        }
+
+        if(gamepad1.b){
+            neutral -= 0.005;
+            while(gamepad1.b);
+        }
+        if(gamepad1.x){
+            neutral += 0.005;
+            while(gamepad1.x);
         }
 
         if(gamepad1.dpad_up){
-            hopperServo.setPosition(0.75);
-        }
-        if(gamepad1.dpad_down){
-            hopperServo.setPosition(0.25);
+            hopperServo.setSpeed(0.55);
+        }else if(gamepad1.dpad_down){
+            hopperServo.setSpeed(0.45);
+        }else{
+            hopperServo.setSpeed(neutral);
         }
 
-        capBallLifter.setPower(gamepad1.left_trigger);
+        if(gamepad1.left_bumper){
+            capBallLifter.setPower(-0.5);
+        }else{
+            capBallLifter.setPower(gamepad1.left_trigger);
+        }
+
+        if(gamepad1.a){
+            capBallLifter.releaseLift();
+            while(gamepad1.a);
+        }
+        telemetry.update();
 
     }
 
