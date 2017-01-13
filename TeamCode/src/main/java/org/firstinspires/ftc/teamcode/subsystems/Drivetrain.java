@@ -78,12 +78,12 @@ public class Drivetrain {
 
         //assign motor powers their inputs based on position on the robot
         double forwardLeftPower = Range.clip((movX + movY), -1, 1) - rotation;
-        double forwardRightPower = Range.clip((-1 * movX + movY), -1, 1) + rotation;
+        double forwardRightPower = Range.clip((-1* movX + movY), -1, 1) + rotation;
         double backLeftPower = Range.clip((-1 * movX + movY), -1, 1) - rotation;
         double backRightPower = Range.clip((movX + movY), -1, 1) + rotation;
 
         //balance movement and rotation
-        if (forwardLeftPower > 1) {
+        /*if (forwardLeftPower > 1) {
             backRightPower -= (forwardLeftPower - 1);
             forwardLeftPower = 1.0;
         }
@@ -114,7 +114,7 @@ public class Drivetrain {
         if (backRightPower < -1) {
             forwardLeftPower += (backRightPower + 1);
             backRightPower = -1.0;
-        }
+        } */
 
         frontLeft.setPower(forwardLeftPower);
         frontRight.setPower(forwardRightPower);
