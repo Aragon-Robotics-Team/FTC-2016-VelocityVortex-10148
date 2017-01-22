@@ -6,14 +6,25 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-/**
- * This is NOT an opmode.
+/* On Actual Bot:
+ * FL = BL
+ * FR = FL
+ * BL = BR
+ * BR = FR
  *
+ * FL = Forward
+ * FR = Reverse
+ * BL = Forward
+ * BR = Reverse
  */
+
 public class Drivetrain {
 
     // Declaration of motors for Holonomic Drive
-    private DcMotor frontLeft, frontRight, backLeft, backRight;
+    public DcMotor frontLeft;
+    public DcMotor frontRight;
+    public DcMotor backLeft;
+    public DcMotor backRight;
 
 
     /* Constructor */
@@ -35,10 +46,11 @@ public class Drivetrain {
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //set wheel direction (reverse if on the right)
-        frontLeft.setDirection(DcMotor.Direction.FORWARD);
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+        //fixed
+        frontLeft.setDirection(DcMotor.Direction.FORWARD); //backleft
+        frontRight.setDirection(DcMotor.Direction.FORWARD); //frontleft
+        backLeft.setDirection(DcMotor.Direction.REVERSE); //backright
+        backRight.setDirection(DcMotor.Direction.REVERSE); //frontright
     }
 
     //Holonomic Drive Methods
@@ -78,7 +90,7 @@ public class Drivetrain {
 
         //assign motor powers their inputs based on position on the robot
         double forwardLeftPower = Range.clip((movX + movY), -1, 1) - rotation;
-        double forwardRightPower = Range.clip((-1 * movX + movY), -1, 1) + rotation;
+        double forwardRightPower = Range.clip((-1* movX + movY), -1, 1) + rotation;
         double backLeftPower = Range.clip((-1 * movX + movY), -1, 1) - rotation;
         double backRightPower = Range.clip((movX + movY), -1, 1) + rotation;
 
