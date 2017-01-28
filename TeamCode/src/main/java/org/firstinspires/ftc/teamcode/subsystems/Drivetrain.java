@@ -6,26 +6,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-/* On Actual Bot:
- * FL = BL
- * FR = FL
- * BL = BR
- * BR = FR
+/**
+ * This is NOT an opmode.
  *
- * FL = Forward
- * FR = Reverse
- * BL = Forward
- * BR = Reverse
  */
-
 public class Drivetrain {
 
     // Declaration of motors for Holonomic Drive
-    public DcMotor frontLeft;
-    public DcMotor frontRight;
-    public DcMotor backLeft;
-    public DcMotor backRight;
-
+    private DcMotor frontLeft, frontRight, backLeft, backRight;
 
     /* Constructor */
     public Drivetrain(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight) {
@@ -46,11 +34,10 @@ public class Drivetrain {
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //set wheel direction (reverse if on the right)
-        //fixed
-        frontLeft.setDirection(DcMotor.Direction.FORWARD); //backleft
-        frontRight.setDirection(DcMotor.Direction.FORWARD); //frontleft
-        backLeft.setDirection(DcMotor.Direction.REVERSE); //backright
-        backRight.setDirection(DcMotor.Direction.REVERSE); //frontright
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
     }
 
     //Holonomic Drive Methods
@@ -75,6 +62,7 @@ public class Drivetrain {
         backRight.setPower(backRightPower);
 
     };
+
     //finds the angle of each motor relative to the direction of movement
     public double relativeAngle (double motorAngle, double movementAngle, int motorPosition){
         //1440: number of ticks per rotation on the encoder
@@ -83,8 +71,6 @@ public class Drivetrain {
         return
                 motorAngle + movementAngle - (2*Math.PI * ((motorPosition/1440)*(Math.PI*3.75))/Math.PI*18.75);
     };
-
-
 
     public void holonomicDrive(double movX, double movY, double rotation) {
 
@@ -138,4 +124,3 @@ public class Drivetrain {
         holonomicDrive(0, 0, 0);
     }
 }
-
