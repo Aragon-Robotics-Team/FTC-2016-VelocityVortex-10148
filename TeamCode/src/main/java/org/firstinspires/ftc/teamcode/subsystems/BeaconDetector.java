@@ -4,15 +4,15 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.LED;
 
-public class BeaconDetect {
+public class BeaconDetector {
 
-    private ColorSensor beacon;
+    private com.qualcomm.robotcore.hardware.ColorSensor beacon;
     private DeviceInterfaceModule dim1;
     private LED led1;
     private boolean isLedLit;
     private int ledChannel;
 
-    public BeaconDetect(ColorSensor beacon, DeviceInterfaceModule dim1, LED led1) {
+    public BeaconDetector(ColorSensor beacon, DeviceInterfaceModule dim1, LED led1) {
         this.dim1 = dim1;
         this.beacon = beacon;
         this.led1 = led1;
