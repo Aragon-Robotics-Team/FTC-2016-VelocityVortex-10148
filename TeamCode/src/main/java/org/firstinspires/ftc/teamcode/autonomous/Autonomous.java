@@ -22,5 +22,26 @@ public class Autonomous extends LinearOpMode {
 
         waitForStart();
 
+        //drive sideways to the left
+        sidewaysLeft();
+        //drive backwards
+        driveBackwards();
+        //detect beacon
+        if(colorSensor.isRed()) {
+
+        }
+    }
+
+    public void driveForward() {
+        drivetrain.holonomicDrive(1, 0, 0);
+    }
+    public void driveBackwards() {
+        drivetrain.holonomicDrive(-1, 0, 0);
+    }
+    public void sidewaysRight() {
+        drivetrain.holonomicDrive(0, 1, 0);
+    }
+    public void sidewaysLeft() {
+        drivetrain.holonomicDrive(0, -1, 0);
     }
 }
