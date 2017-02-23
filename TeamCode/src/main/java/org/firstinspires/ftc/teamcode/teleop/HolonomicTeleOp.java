@@ -21,7 +21,7 @@ public class HolonomicTeleOp extends OpMode {
     }
 
     public void loop() {
-        //mecanum drive algorithm
+        //holonomic drive algorithm
         drivetrain.holonomicDrive(-Math.pow(gamepad1.left_stick_x, 3), -Math.pow(gamepad1.left_stick_y, 3), Math.pow(gamepad1.right_stick_x, 3));
 
         telemetry.addData("G1_left_stick:", (gamepad1.left_stick_x*100)+ " " + gamepad1.left_stick_y*100);
