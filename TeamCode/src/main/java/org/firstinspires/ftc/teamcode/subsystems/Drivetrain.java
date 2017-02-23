@@ -61,7 +61,7 @@ public class Drivetrain {
         backLeft.setPower(backLeftPower);
         backRight.setPower(backRightPower);
 
-    };
+    }
 
     //finds the angle of each motor relative to the direction of movement
     public double relativeAngle (double motorAngle, double movementAngle, int motorPosition){
@@ -70,7 +70,7 @@ public class Drivetrain {
         //18.75: approximation of the diameter of the bot's path
         return
                 motorAngle + movementAngle - (2*Math.PI * ((motorPosition/1440)*(Math.PI*3.75))/Math.PI*18.75);
-    };
+    }
 
     public void holonomicDrive(double movX, double movY, double rotation) {
 
@@ -120,7 +120,34 @@ public class Drivetrain {
         backRight.setPower(backRightPower);
     }
 
+    public void mechanumDrive(double movX, double movY, double rotation) {
+
+        //assign motor powers their inputs based on position on the robot
+        double forwardLeftPower = Range.clip((-1*movX - movY), -1, 1) - rotation;
+        double forwardRightPower = -1*(Range.clip((-1*movX + movY), -1, 1) - rotation);
+        double backLeftPower = Range.clip((movX - movY), -1, 1) - rotation;
+        double backRightPower = -1*(Range.clip((movX + movY), -1, 1) - rotation);
+
+        frontLeft.setPower(forwardLeftPower);
+        frontRight.setPower(forwardRightPower);
+        backLeft.setPower(backLeftPower);
+        backRight.setPower(backRightPower);
+    }
+    public void mecanumDrive2(double movX, double movY, double rotation) {
+        double forwardRightPower = Range.clip((movY + movX - rotation), -1, 1);
+        double forwardLeftPower = Range.clip((movY - movX + rotation), -1, 1);
+        double backRightPower = Range.clip((movY - movX - rotation), -1, 1);
+        double backLeftPower = Range.clip((movY + movX + rotation), -1, 1);
+
+        frontLeft.setPower(forwardLeftPower);
+        frontRight.setPower(forwardRightPower);
+        backLeft.setPower(backLeftPower);
+        backRight.setPower(backRightPower);
+    }
+
     public void stop() {
-        holonomicDrive(0, 0, 0);
+        holonomicDrive(0,0,0);
+        mecanumDrive2(0, 0, 0);
+        mechanumDrive(0, 0, 0);
     }
 }

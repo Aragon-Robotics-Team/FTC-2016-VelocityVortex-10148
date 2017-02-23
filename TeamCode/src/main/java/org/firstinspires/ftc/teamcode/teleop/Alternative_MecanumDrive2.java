@@ -1,19 +1,16 @@
 package org.firstinspires.ftc.teamcode.teleop;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FlyWheels;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-/*
- *THE ONE AND ONLY TELEOP
- * CREATED BY CHLOE, 2/9/17
- */
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Drive: LinOpFinal", group="Drive")
-public class TeleOp extends OpMode{
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Drive: MecanumDrive2", group="Drive")
 
+public class Alternative_MecanumDrive2 extends OpMode {
     private Drivetrain drivetrain;
     private Intake intake;
     private FlyWheels flyWheels;
@@ -26,8 +23,8 @@ public class TeleOp extends OpMode{
     }
 
     public void loop() {
-        //holonomic drive algorithm
-        drivetrain.holonomicDrive(-Math.pow(gamepad1.left_stick_x, 3), -Math.pow(gamepad1.left_stick_y, 3), Math.pow(gamepad1.right_stick_x, 3));
+        //mecanum drive algorithm
+        drivetrain.mecanumDrive2(-Math.pow(gamepad1.left_stick_x, 3), -Math.pow(gamepad1.left_stick_y, 3), Math.pow(gamepad1.right_stick_x, 3));
 
         telemetry.addData("G1_left_stick:", (gamepad1.left_stick_x*100)+ " " + gamepad1.left_stick_y*100);
         telemetry.addData("G1_right_stick:", (gamepad1.right_stick_x*100)+ " " + gamepad1.right_stick_y*100);
