@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -36,16 +36,12 @@ public class DrivingDistanceTest extends LinearOpMode {
         sleep(1000);
         idle();
     }
-    public void driveForward() {
-        drivetrain.holonomicDrive(1, 0, 0);
-    }
-    public void driveBackwards() {
+    public void sidewaysLeft() { drivetrain.holonomicDrive(1, 0, 0); }
+    public void sidewaysRight() {
         drivetrain.holonomicDrive(-1, 0, 0);
     }
-    public void sidewaysRight() {
-        drivetrain.holonomicDrive(0, 1, 0);
-    }
-    public void sidewaysLeft() {
+    public void driveBackwards() {
         drivetrain.holonomicDrive(0, -1, 0);
     }
+    public void driveForward() { drivetrain.holonomicDrive(0, 1, 0); }
 }

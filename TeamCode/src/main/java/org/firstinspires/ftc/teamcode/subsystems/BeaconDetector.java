@@ -38,6 +38,8 @@ public class BeaconDetector {
         return beacon.red() > beacon.blue();
     }
 
+    public boolean isBlue() { return beacon.red() < beacon.blue(); }
+
     public void setLed(boolean lit) {
         isLedLit = lit;
         dim1.setDigitalChannelState(ledChannel, isLedLit);

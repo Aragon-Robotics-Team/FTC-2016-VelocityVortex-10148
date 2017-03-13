@@ -45,66 +45,61 @@ public class Autonomous extends LinearOpMode {
         wait(1000);
 
         //detect beacon
-        switch (color) {
-            case "Red":
-                telemetry.addData("Color: ", color);
+        if (colorSensor.isRed()) {
+            telemetry.addData("Color: ", color);
+            telemetry.update();
+
+            wait(1000);
+
+            sidewaysLeft();
+            runtime.reset();
+            while (opModeIsActive() && (runtime.seconds() < 1.3)) {
+                telemetry.addData("If Red, hit beacon", runtime.seconds());
                 telemetry.update();
+                idle();
+            }
 
-                wait(1000);
+        } else if (colorSensor.isBlue()) {
+            telemetry.addData("Color: ", color);
+            telemetry.update();
 
-                sidewaysLeft();
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-                    telemetry.addData("If Red, hit beacon", runtime.seconds());
-                    telemetry.update();
-                    idle();
-                }
-                break;
-            case "Blue":
-                telemetry.addData("Color: ", color);
+            wait(1000);
+
+            driveBackwards();
+            runtime.reset();
+            while (opModeIsActive() && (runtime.seconds() < 1.3)) {
+                telemetry.addData("If Blue, drive to the other button", runtime.seconds());
                 telemetry.update();
-
-                wait(1000);
-
-                driveBackwards();
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-                    telemetry.addData("If Blue, drive to the other button", runtime.seconds());
-                    telemetry.update();
-                    idle();
-                }
-                sidewaysLeft();
-                runtime.reset();
-                while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-                    telemetry.addData("Hit the Beacon", runtime.seconds());
-                    telemetry.update();
-                    idle();
-                }
-                break;
-            default:
-                telemetry.addData("Color: ", color);
+                idle();
+            }
+            sidewaysLeft();
+            runtime.reset();
+            while (opModeIsActive() && (runtime.seconds() < 1.3)) {
+                telemetry.addData("Hit the Beacon", runtime.seconds());
                 telemetry.update();
+                idle();
+            }
 
-                wait(1000);
+        } else {
+            telemetry.addData("Color: ", color);
+            telemetry.update();
 
-                telemetry.addData("Not detecting anything...", runtime.seconds());
-                telemetry.update();
+            wait(1000);
 
-                break;
+            telemetry.addData("Not detecting anything...", runtime.seconds());
+            telemetry.update();
+
+
         }
         drivetrain.stop();
     }
 
-    public void driveForward() {
-        drivetrain.holonomicDrive(1, 0, 0);
-    }
-    public void driveBackwards() {
+    public void sidewaysLeft() { drivetrain.holonomicDrive(1, 0, 0); }
+    public void sidewaysRight() {
         drivetrain.holonomicDrive(-1, 0, 0);
     }
-    public void sidewaysRight() {
-        drivetrain.holonomicDrive(0, 1, 0);
-    }
-    public void sidewaysLeft() {
+    public void driveBackwards() {
         drivetrain.holonomicDrive(0, -1, 0);
     }
+    public void driveForward() { drivetrain.holonomicDrive(0, 1, 0); }
 }
