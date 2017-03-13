@@ -7,7 +7,8 @@ import org.firstinspires.ftc.teamcode.subsystems.BeaconDetector;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 /* Designed to push one beacon
- *
+ * 29 inches in one second for holonomic drive
+ * need to fix running times
  */
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name= "Autonomous", group= "AutoOp")
 public class Autonomous extends LinearOpMode {
