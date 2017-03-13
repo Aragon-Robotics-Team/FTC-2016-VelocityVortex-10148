@@ -23,6 +23,17 @@ public class BeaconDetector {
 
     }
 
+    public String detectColor(){
+        if(beacon.red() > beacon.blue()){
+            return "Red";
+        }
+        else if(beacon.blue() > beacon.red()){
+            return "Blue";
+        }
+        else{
+            return "N/A";
+        }
+    }
     public boolean isRed() {
         return beacon.red() > beacon.blue();
     }
