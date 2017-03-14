@@ -133,21 +133,10 @@ public class Drivetrain {
         backLeft.setPower(backLeftPower);
         backRight.setPower(backRightPower);
     }
-    public void mecanumDrive2(double movX, double movY, double rotation) {
-        double forwardRightPower = Range.clip((-1*movY + movX - rotation), -1, 1);
-        double forwardLeftPower = -1*Range.clip((-1*movY - movX + rotation), -1, 1);
-        double backRightPower = Range.clip((movY - movX - rotation), -1, 1);
-        double backLeftPower = -1*Range.clip((movY + movX + rotation), -1, 1);
 
-        frontLeft.setPower(forwardLeftPower);
-        frontRight.setPower(forwardRightPower);
-        backLeft.setPower(backLeftPower);
-        backRight.setPower(backRightPower);
-    }
 
     public void stop() {
         holonomicDrive(0,0,0);
-        mecanumDrive2(0, 0, 0);
         mechanumDrive(0, 0, 0);
     }
 }
